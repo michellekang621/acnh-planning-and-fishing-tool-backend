@@ -7,10 +7,17 @@ const connectionParams={
     useCreateIndex: true,
     useUnifiedTopology: true 
 }
-mongoose.connect(url,connectionParams)
+
+const initiateMongoServer = () => {
+    mongoose.connect(url,connectionParams)
     .then( () => {
         console.log('Connected to database ')
     })
     .catch( (err) => {
         console.error(`Error connecting to the database. \n${err}`);
     })
+}
+
+module.exports = {
+    initiateMongoServer: initiateMongoServer,
+}
