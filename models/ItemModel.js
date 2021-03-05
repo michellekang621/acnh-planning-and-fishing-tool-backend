@@ -12,6 +12,8 @@ const itemSchema = mongoose.Schema({
     }
 }, {collection: 'items'})
 
+itemSchema.index({'$**': 'text'});
+
 const itemModel = mongoose.model(
     'ItemModel',
     itemSchema
@@ -19,6 +21,14 @@ const itemModel = mongoose.model(
 
 const findItemsByType = (type) => {
     return itemModel.find({type: type});
+}
+
+const findItemById = (id) => {
+    return itemModel.findById(id);
+}
+
+const findItemsBySearchString = (searchString) => {
+    return itemModel.find({$text: {$search: searchString}});
 }
 
 // for: fish, sea, bugs, fossils, villagers
@@ -66,5 +76,8 @@ const postAllItems = () => {
 
 module.exports = {
     findItemsByType: findItemsByType,
+    findItemById: findItemById,
+    findItemsBySearchString: findItemsBySearchString,
+
     postAllItems: postAllItems,
 };

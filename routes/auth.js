@@ -32,14 +32,13 @@ router.post(
               errors: errors.array()
           });
       }
-
       const {
           username,
           email,
           password
       } = req.body;
       try {
-          let user = await User.findOne({
+          let user = await User.findOneUser({
               email
           });
           if (user) {
@@ -48,11 +47,7 @@ router.post(
               });
           }
 
-          user = new User({
-              username,
-              email,
-              password
-          });
+          user = User.instantiateNewUser(username, email, password)
 
           const salt = await bcrypt.genSalt(10);
           user.password = await bcrypt.hash(password, salt);
@@ -108,7 +103,7 @@ router.post(
 
     const { email, password } = req.body;
     try {
-      let user = await User.findOne({
+      let user = await User.findOneUser({
         email
       });
       if (!user)
@@ -153,14 +148,14 @@ router.post(
 /**
  * @method - GET
  * @description - Get LoggedIn User
- * @param - /user/me
+ * @param - /auth/me
  */
 
 
 router.get("/me", auth, async (req, res) => {
   try {
     // request.user is getting fetched from Middleware after token authentication
-    const user = await User.findById(req.user.id);
+    const user = await User.findUserById(req.user.id);
     res.json(user);
   } catch (e) {
     res.send({ message: "Error in Fetching user" });
