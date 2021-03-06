@@ -38,7 +38,7 @@ router.post(
           password
       } = req.body;
       try {
-          let user = await User.findOneUser({
+          let user = await User.findUserByEmail({
               email
           });
           if (user) {
@@ -103,7 +103,7 @@ router.post(
 
     const { email, password } = req.body;
     try {
-      let user = await User.findOneUser({
+      let user = await User.findUserByEmail({
         email
       });
       if (!user)

@@ -46,10 +46,10 @@ app.get("/", (req, res) => {
 });
 
 // ROUTING
-app.use('/', indexRouter);
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/items', itemRouter);
+app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
