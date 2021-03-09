@@ -23,6 +23,20 @@ const findItemsByType = (type) => {
     return itemModel.find({type: type});
 }
 
+const findAvailableFish = (hemisphere, month, time) => {
+    if (hemisphere === "northern") {
+        console.log('NORTHERN');
+        return itemModel.find({'item.availability.month-array-northern': parseInt(month), 'item.availability.time-array': parseInt(time)});
+    } else if (hemisphere === "southern") {
+        console.log('SOUTHERN');
+        return itemModel.find({'item.availability.month-array-southern': parseInt(month), 'item.availability.time-array': parseInt(time)})
+        .then((fish) => {
+            console.log(fish);
+            return fish;
+        });
+    }
+}
+
 const findItemById = (id) => {
     return itemModel.findById(id);
 }
@@ -76,6 +90,7 @@ const postAllItems = () => {
 
 module.exports = {
     findItemsByType: findItemsByType,
+    findAvailableFish: findAvailableFish,
     findItemById: findItemById,
     findItemsBySearchString: findItemsBySearchString,
 
