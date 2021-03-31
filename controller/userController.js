@@ -19,7 +19,7 @@ function findGoalsByUser(req, res, next) {
 }
 
 function addGoalByUser(req, res, next) {
-    return userModel.addGoalByUser(req.params.id, {title: req.body.goal, content: []})
+    return userModel.addGoalByUser(req.params.id, req.body.goal)
     .then((msg) => res.status(200).json(msg))
     .catch((err) => next(err));
 }
@@ -48,6 +48,12 @@ function findContentFromContents(req, res, next) {
     .catch((err) => next(err));
 }
 
+function deleteContentByGoal(req, res, next) {
+    return userModel.deleteContentByGoal(req.params.id, req.params.goalId, req.params.contentId)
+    .then((msg) => res.status(200).json(msg))
+    .catch((err) => next(err));
+}
+
 module.exports = {
     findAllUsers: findAllUsers,
     findUserById: findUserById,
@@ -57,5 +63,6 @@ module.exports = {
     findContentsByGoal: findContentsByGoal,
     addContentByGoal: addContentByGoal,
     findContentFromContents: findContentFromContents,
+    deleteContentByGoal: deleteContentByGoal,
 
 }

@@ -6,10 +6,15 @@ const router = express.Router();
 router.route('/:id/goals/:goalId/contents/:contentId')
 .get(userController.findContentFromContents);
 
+// remove one instance of a specific content of a specific goal
+router.route('/:id/goals/:goalId/contents/:contentId')
+.delete(userController.deleteContentByGoal);
+
 // get the contents of a specific goal
 router.route('/:id/goals/:goalId/contents')
 .get(userController.findContentsByGoal);
 
+// add a specific content to a specific goal
 router.route('/:id/goals/:goalId/contents')
 .post(userController.addContentByGoal);
 
@@ -21,6 +26,7 @@ router.route('/:id/goals/:goalId')
 router.route('/:id/goals')
 .get(userController.findGoalsByUser);
 
+// add a specific goal to a specific user
 router.route('/:id/goals')
 .post(userController.addGoalByUser);
 
