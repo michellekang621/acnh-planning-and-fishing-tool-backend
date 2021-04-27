@@ -26,13 +26,41 @@ const findItemsByType = (type) => {
 const findAvailableFish = (hemisphere, month, time) => {
     if (hemisphere === "northern") {
         console.log('NORTHERN');
-        return itemModel.find({'item.availability.month-array-northern': parseInt(month), 'item.availability.time-array': parseInt(time)});
+        return itemModel.find({'type': 'fish', 'item.availability.month-array-northern': parseInt(month), 'item.availability.time-array': parseInt(time)});
     } else if (hemisphere === "southern") {
         console.log('SOUTHERN');
-        return itemModel.find({'item.availability.month-array-southern': parseInt(month), 'item.availability.time-array': parseInt(time)})
+        return itemModel.find({'type': 'fish', 'item.availability.month-array-southern': parseInt(month), 'item.availability.time-array': parseInt(time)})
         .then((fish) => {
             console.log(fish);
             return fish;
+        });
+    }
+}
+
+const findAvailableBugs = (hemisphere, month, time) => {
+    if (hemisphere === "northern") {
+        console.log('NORTHERN');
+        return itemModel.find({'type': 'bug', 'item.availability.month-array-northern': parseInt(month), 'item.availability.time-array': parseInt(time)});
+    } else if (hemisphere === "southern") {
+        console.log('SOUTHERN');
+        return itemModel.find({'type': 'bug', 'item.availability.month-array-southern': parseInt(month), 'item.availability.time-array': parseInt(time)})
+        .then((bugs) => {
+            console.log(bugs);
+            return bugs;
+        });
+    }
+}
+
+const findAvailableSeaCreatures = (hemisphere, month, time) => {
+    if (hemisphere === "northern") {
+        console.log('NORTHERN');
+        return itemModel.find({'type': 'sea', 'item.availability.month-array-northern': parseInt(month), 'item.availability.time-array': parseInt(time)});
+    } else if (hemisphere === "southern") {
+        console.log('SOUTHERN');
+        return itemModel.find({'type': 'sea', 'item.availability.month-array-southern': parseInt(month), 'item.availability.time-array': parseInt(time)})
+        .then((bugs) => {
+            console.log(bugs);
+            return bugs;
         });
     }
 }
@@ -91,6 +119,8 @@ const postAllItems = () => {
 module.exports = {
     findItemsByType: findItemsByType,
     findAvailableFish: findAvailableFish,
+    findAvailableBugs: findAvailableBugs,
+    findAvailableSeaCreatures: findAvailableSeaCreatures,
     findItemById: findItemById,
     findItemsBySearchString: findItemsBySearchString,
 

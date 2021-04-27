@@ -11,6 +11,12 @@ router.route('/type/:itemType')
 router.route('/search-fish')
 .get(itemController.findAvailableFish);
 
+router.route('/search-bugs')
+.get(itemController.findAvailableBugs);
+
+router.route('/search-seas')
+.get(itemController.findAvailableSeaCreatures);
+
 router.route('/:id')
 .get(itemController.findItemById);
 
